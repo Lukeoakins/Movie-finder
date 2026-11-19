@@ -1,15 +1,25 @@
 import { useState } from 'react'
 import './App.css'
+import { Header } from './components'
 import * as Pages from "./pages"
+import {Routes, Route} from 'react-router-dom'
+import { ShowProvider } from './contexts'
+
 
 function App() {
   return (
-    <>
-    <Pages.HomePage />
-    <Pages.ShowsPage />
-    <Pages.ShowPage />
-    <Pages.SearchPage />
-    <Pages.NotFoundPage />
-    </>
+    <ShowProvider>
+        <Routes>
+        <Route path="/" element={<Header />} >
+          <Route index element={<Pages.HomePage />}/>
+          <Route path="/shows" element={<Pages.ShowsPage />}/>
+          <Route path="/shows/:id" element={<Pages.ShowPage />}/>
+          <Route path="/search" element={<Pages.SearchPage />}/>
+          <Route path="*" element={<Pages.NotFoundPage />}/>
+          </Route>
+        </Routes>
+    </ShowProvider>
   )
 }
+
+export default App
